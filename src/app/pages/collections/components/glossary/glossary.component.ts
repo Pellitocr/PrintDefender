@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 declare var $: any;
 declare var Swiper: any
@@ -10,10 +11,25 @@ declare var Swiper: any
 })
 export class GlossaryComponent implements OnInit {
 
-  constructor(private element: ElementRef){}
+	public Collection: String ='';
+
+  constructor(private element: ElementRef, private route: ActivatedRoute, private router: Router){}
 
   ngOnInit(): void {
-    this.ecommerce();
+    this.route.params.subscribe(params => {
+		if (params['id'] && params['id']) {
+		  const id = params['id'];
+			this.Collection = id;
+			this.ecommerce();
+		} 
+		else if (!params['id']) {
+		  this.router.navigateByUrl('Not-Found');
+		}
+	  });
+
+
+
+
   
   }
 
