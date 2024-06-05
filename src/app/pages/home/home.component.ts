@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit } from '@angular/core';
 
 declare var $: any;
 declare var Swiper: any
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,6 +12,15 @@ export class HomeComponent implements OnInit{
 
   public QuickView: any;
 
+  myCollection: MyObject[] = [
+    { id: 'helldivers', name: 'Helldivers', image: 'https://helldivers.wiki.gg/images/5/5e/HD2_SteamLibrary-Portrait.jpg'},
+    { id: 'starwars', name: 'Star Wars', image: 'https://helldivers.wiki.gg/images/5/5e/HD2_SteamLibrary-Portrait.jpg' },
+    { id: 'halo', name: 'Halo', image: 'https://helldivers.wiki.gg/images/5/5e/HD2_SteamLibrary-Portrait.jpg' },
+    { id: 'fallout', name: 'Fallout', image: 'https://helldivers.wiki.gg/images/5/5e/HD2_SteamLibrary-Portrait.jpg' },
+    { id: 'eva', name: 'Evangelion', image: 'https://helldivers.wiki.gg/images/5/5e/HD2_SteamLibrary-Portrait.jpg' },
+    { id: 'figures', name: 'Figures', image: 'https://helldivers.wiki.gg/images/5/5e/HD2_SteamLibrary-Portrait.jpg' }
+  ];
+
   constructor(private element: ElementRef){}
 
   ngOnInit(): void {
@@ -18,22 +28,22 @@ export class HomeComponent implements OnInit{
     this.QuickView = (window as any).$(this.element.nativeElement).find('#producQuickViewModal');
 
     this.MainSlider();
-    this.BannerSlider();
-    this.CategorySlider();
+setTimeout(() => {
+      this.CategorySlider();
+}, 200);
     this.weeksFeatured();
-    this.trending();
-    this.testimonial();
-
+    // this.trending();
+    // this.testimonial();
+    // this.BannerSlider();
     // this.quickView()
 
     $('.tp-product-quick-view-btn').on('click',  () => {
 			this.quickView();
 		});
 
-    $('.tp-color-variation-btn').on('click',  (e: any) => {
+    $('.tp-style-variation-btn').on('click',  (e: any) => {
 			$(e.currentTarget).addClass('active').siblings().removeClass('active');
 		});
-
 
     $('.tp-size-variation-btn').on('click',  (e: any) => {
 			$(e.currentTarget).addClass('active').siblings().removeClass('active');
@@ -246,4 +256,10 @@ export class HomeComponent implements OnInit{
 			return false;
 		});
   }
+}
+
+interface MyObject {
+  id: string;
+  name: string;
+  image: string
 }

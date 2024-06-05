@@ -169,7 +169,7 @@
                          <path d="M81 14.5798C0.890564 -8.05914 -5.81154 0.0503902 5.00322 21" stroke="currentColor" stroke-opacity="0.3" stroke-width="2" stroke-miterlimit="3.8637" stroke-linecap="round"/>
                       </svg>
                    </span>
-                   <h3 class="tp-section-title-2">Popular on the Shofy store.</h3>
+                   <h3 class="tp-section-title-2">Popular on Print Defender</h3>
                 </div>
              </div>
           </div>
@@ -178,102 +178,23 @@
                 <div class="tp-category-slider-2">
                    <div class="tp-category-slider-active-2 swiper-container mb-50">
                       <div class="swiper-wrapper">
-                         <div class="tp-category-item-2 p-relative z-index-1 text-center swiper-slide">
+                         <div class="tp-category-item-2 p-relative z-index-1 text-center swiper-slide" *ngFor="let item of myCollection">
                             <div class="tp-category-thumb-2">
                                <a href="#">
-                                  <img src="assets/img/category/category-1.jpg" alt="">
+                                  <img src="assets/img/category/helldiver.jpg" alt="">
                                </a>
                             </div>
                             <div class="tp-category-content-2">
-                               <span>From $34.95</span>
+                               <!-- <span>From $34.95</span> -->
                                <h3 class="tp-category-title-2">
-                                  <a href="product-details.html">Crew Neck T-shirt</a>
+                                  <a href="product-details.html">{{item.name}}</a>
                                </h3>
                                <div class="tp-category-btn-2">
-                                  <a href="product-details.html" class="tp-btn tp-btn-border"> Add to Cart</a>
+                                  <a [routerLink]="['/Collections', item.id]" class="tp-btn tp-btn-border">Shop Now</a>
                                </div>
                             </div>
                          </div>
-                         <div class="tp-category-item-2 p-relative z-index-1 text-center swiper-slide">
-                            <div class="tp-category-thumb-2">
-                               <a href="#">
-                                  <img src="assets/img/category/category-2.jpg" alt="">
-                               </a>
-                            </div>
-                            <div class="tp-category-content-2">
-                               <span>From $34.95</span>
-                               <h3 class="tp-category-title-2">
-                                  <a href="product-details.html">Crew Neck T-shirt</a>
-                               </h3>
-                               <div class="tp-category-btn-2">
-                                  <a href="product-details.html" class="tp-btn tp-btn-border"> Add to Cart</a>
-                               </div>
-                            </div>
-                         </div>
-                         <div class="tp-category-item-2 p-relative z-index-1 text-center swiper-slide">
-                            <div class="tp-category-thumb-2">
-                               <a href="#">
-                                  <img src="assets/img/category/category-3.jpg" alt="">
-                               </a>
-                            </div>
-                            <div class="tp-category-content-2">
-                               <span>From $34.95</span>
-                               <h3 class="tp-category-title-2">
-                                  <a href="product-details.html">Crew Neck T-shirt</a>
-                               </h3>
-                               <div class="tp-category-btn-2">
-                                  <a href="product-details.html" class="tp-btn tp-btn-border"> Add to Cart</a>
-                               </div>
-                            </div>
-                         </div>
-                         <div class="tp-category-item-2 p-relative z-index-1 text-center swiper-slide">
-                            <div class="tp-category-thumb-2">
-                               <a href="#">
-                                  <img src="assets/img/category/category-4.jpg" alt="">
-                               </a>
-                            </div>
-                            <div class="tp-category-content-2">
-                               <span>From $34.95</span>
-                               <h3 class="tp-category-title-2">
-                                  <a href="product-details.html">Crew Neck T-shirt</a>
-                               </h3>
-                               <div class="tp-category-btn-2">
-                                  <a href="product-details.html" class="tp-btn tp-btn-border"> Add to Cart</a>
-                               </div>
-                            </div>
-                         </div>
-                         <div class="tp-category-item-2 p-relative z-index-1 text-center swiper-slide">
-                            <div class="tp-category-thumb-2">
-                               <a href="#">
-                                  <img src="assets/img/category/category-5.jpg" alt="">
-                               </a>
-                            </div>
-                            <div class="tp-category-content-2">
-                               <span>From $34.95</span>
-                               <h3 class="tp-category-title-2">
-                                  <a href="product-details.html">Crew Neck T-shirt</a>
-                               </h3>
-                               <div class="tp-category-btn-2">
-                                  <a href="product-details.html" class="tp-btn tp-btn-border"> Add to Cart</a>
-                               </div>
-                            </div>
-                         </div>
-                         <div class="tp-category-item-2 p-relative z-index-1 text-center swiper-slide">
-                            <div class="tp-category-thumb-2">
-                               <a href="#">
-                                  <img src="assets/img/category/category-6.jpg" alt="">
-                               </a>
-                            </div>
-                            <div class="tp-category-content-2">
-                               <span>From $34.95</span>
-                               <h3 class="tp-category-title-2">
-                                  <a href="product-details.html">Crew Neck T-shirt</a>
-                               </h3>
-                               <div class="tp-category-btn-2">
-                                  <a href="product-details.html" class="tp-btn tp-btn-border"> Add to Cart</a>
-                               </div>
-                            </div>
-                         </div>
+
                       </div>
                    </div>
                    <div class="swiper-scrollbar tp-swiper-scrollbar tp-swiper-scrollbar-drag"></div>
@@ -2770,26 +2691,19 @@
                    </div>
 
                    <!-- variations -->
-                   <div class="tp-product-details-variation">
+                   <div class="tp-product-details-variation-title">
                       <!-- single item -->
                       <div class="tp-product-details-variation-item">
-                         <h4 class="tp-product-details-variation-title">Color :</h4>
+                           <h4 class="tp-product-details-variation-title">Style : Filled</h4>
                          <div class="tp-product-details-variation-list">
-                            <button type="button" class="color tp-color-variation-btn" >
-                               <span data-bg-color="#F8B655"></span>
-                               <span class="tp-color-variation-tootltip">Yellow</span>
+                            <button type="button" class="tp-style-variation-btn" >
+                               <span>Raw</span>
                             </button>
-                            <button type="button" class="color tp-color-variation-btn active" >
-                               <span data-bg-color="#CBCBCB"></span>
-                               <span class="tp-color-variation-tootltip">Gray</span>
+                            <button type="button" class="tp-style-variation-btn active" >
+                               <span>Filled</span>
                             </button>
-                            <button type="button" class="color tp-color-variation-btn" >
-                               <span data-bg-color="#494E52"></span>
-                               <span class="tp-color-variation-tootltip">Black</span>
-                            </button>
-                            <button type="button" class="color tp-color-variation-btn" >
-                               <span data-bg-color="#B4505A"></span>
-                               <span class="tp-color-variation-tootltip">Brown</span>
+                            <button type="button" class="tp-style-variation-btn" >
+                               <span>Complete</span>
                             </button>
                          </div>
                          <h4 class="tp-product-details-variation-title">Size : S</h4>

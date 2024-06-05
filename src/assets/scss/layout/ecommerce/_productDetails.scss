@@ -306,6 +306,23 @@
                     }
                 }
 
+                //new
+
+                &.tp-style-variation-btn{
+                    width: 175px;
+                    height: 40px;
+                    border: 1px solid rgba($color: $black, $alpha: .2);
+                    border-radius: 0;
+                    @include tp-transition(all, .2s, linear);
+                    &:hover,
+                    &.active{
+                        box-shadow: none;
+                        border-color: var(--tp-common-black);
+                        box-shadow: none;
+                        color: var(--tp-common-black);
+                    }
+                }
+
 
                 &:hover,
                 &.active{

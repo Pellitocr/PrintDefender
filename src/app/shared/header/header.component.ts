@@ -27,6 +27,27 @@ export class HeaderComponent implements OnInit{
       $(".body-overlay").removeClass("opened");
     });
 
+
+    	////////////////////////////////////////////////////
+	// 06. Search Js
+	$(".tp-search-open-btn").on("click", function () {
+		$(".tp-search-area").addClass("opened");
+		$(".body-overlay").addClass("opened");
+	});
+	$(".tp-search-close-btn").on("click", function () {
+		$(".tp-search-area").removeClass("opened");
+		$(".body-overlay").removeClass("opened");
+	});
+
+  	// 05. Offcanvas Js
+	$(".tp-offcanvas-open-btn").on("click", function () {
+		$(".offcanvas__area").addClass("offcanvas-opened");
+		$(".body-overlay").addClass("opened");
+	});
+	$(".offcanvas-close-btn").on("click", function () {
+		$(".offcanvas__area").removeClass("offcanvas-opened");
+		$(".body-overlay").removeClass("opened");
+	});
   }
 
   public headerCurrency(){
