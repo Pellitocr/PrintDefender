@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { MyObject } from 'src/app/models/collection.interface';
 
 declare var $: any;
 declare var Swiper: any
@@ -258,8 +259,3 @@ setTimeout(() => {
   }
 }
 
-interface MyObject {
-  id: string;
-  name: string;
-  image: string
-}

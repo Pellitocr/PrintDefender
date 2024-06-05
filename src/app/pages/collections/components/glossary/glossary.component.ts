@@ -42,6 +42,12 @@ export class GlossaryComponent implements OnInit {
 			$input.change();
 			return false;
 		});
+
+		$(".filter-open-dropdown-btn").on("click", function () {
+			$(".tp-filter-dropdown-area").toggleClass('filter-dropdown-opened');
+		});
+		// 12. Nice Select Js
+		$('.tp-header-search-category select, .tp-shop-area select, .tp-checkout-area select, .profile__area select').niceSelect();
   }
 
 }
