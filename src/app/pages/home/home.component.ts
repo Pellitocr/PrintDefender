@@ -1,5 +1,7 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { MyObject } from 'src/app/models/collection.interface';
+import { collection } from 'src/app/models/collection.interface';
+import { HomeService } from './home.service';
+import { UtilsService } from 'src/app/core/services/utils.service';
 
 declare var $: any;
 declare var Swiper: any
@@ -12,45 +14,77 @@ declare var Swiper: any
 export class HomeComponent implements OnInit{
 
   public QuickView: any;
+  public myCollection: collection[] = [];
 
-  myCollection: MyObject[] = [
-    { id: 'helldivers', name: 'Helldivers', image: 'https://helldivers.wiki.gg/images/5/5e/HD2_SteamLibrary-Portrait.jpg'},
-    { id: 'starwars', name: 'Star Wars', image: 'https://c8.alamy.com/comp/EC7WG1/film-poster-for-george-lucas-film-star-wars-an-american-epic-spacescience-EC7WG1.jpg' },
-    { id: 'halo', name: 'Halo', image: 'https://www.dolby.com/siteassets/xf-site/content-detail-pages/halo_infinite_keyart_primary_vertical_rgb_1280x1920.jpg' },
-    { id: 'fallout', name: 'Fallout', image: 'https://upload.wikimedia.org/wikipedia/vi/4/45/Fallout_4_cover.jpg' },
-    { id: 'eva', name: 'Evangelion', image: 'https://i.pinimg.com/originals/ee/11/24/ee1124ff30e2a4e9127222b813801426.jpg' },
-    { id: 'figures', name: 'Figures', image: 'https://ae01.alicdn.com/kf/Scbed7037302f4b4a8760ba7fc10ec5d3B/51cm-One-Piece-Action-Figure-Luffy-Shanks-Anime-Figures-Combination-New-Age-Monkey-D-Luffy-Figurine.jpg' }
-  ];
-
-  constructor(private element: ElementRef){}
+  constructor(private element: ElementRef, private homeSv: HomeService, private utils : UtilsService){}
 
   ngOnInit(): void {
 
     this.QuickView = (window as any).$(this.element.nativeElement).find('#producQuickViewModal');
 
+    this.utils.showLoading();
+    this.loadCollections();
+
     this.MainSlider();
-setTimeout(() => {
-      this.CategorySlider();
-}, 200);
     this.weeksFeatured();
-    // this.trending();
-    // this.testimonial();
-    // this.BannerSlider();
-    // this.quickView()
+
+ 
+    
 
     $('.tp-product-quick-view-btn').on('click',  () => {
 			this.quickView();
 		});
 
+
+  }
+
+  public loadCollections(){
+    this.homeSv.getCollections().subscribe(
+      result=>{
+        console.log(result)
+        this.myCollection = result.data
+        
+        setTimeout(() => {
+          this.CategorySlider();
+          this.utils.hideLoading();
+        }, 1);
+      }, error =>{
+
+      }
+    )
+  }
+
+  public quickView(){
+
+    this.ecommerce();
+  }
+
+  public ecommerce(){
+
+
+    $('.tp-cart-minus').on('click',  () => {
+      var $input = $(this.element.nativeElement).find('#tp-cart-input');
+      var count = parseInt($input.val()) - 1;
+      count = count < 1 ? 1 : count;
+      $input.val(count);
+      $input.change();
+      return false;
+    });
+
+    $('.tp-cart-plus').on('click',  () => {
+      var $input = $(this.element.nativeElement).find('#tp-cart-input');
+      $input.val(parseInt($input.val()) + 1);
+      $input.change();
+      return false;
+    });
+
     $('.tp-style-variation-btn').on('click',  (e: any) => {
-			$(e.currentTarget).addClass('active').siblings().removeClass('active');
-		});
+      $(e.currentTarget).addClass('active').siblings().removeClass('active');
+    });
 
     $('.tp-size-variation-btn').on('click',  (e: any) => {
-			$(e.currentTarget).addClass('active').siblings().removeClass('active');
-		});
-
-
+      $(e.currentTarget).addClass('active').siblings().removeClass('active');
+    });
   }
 
   public MainSlider(){
@@ -122,71 +156,15 @@ setTimeout(() => {
     });
   }
 
-  public BannerSlider(){
-    var slider = new Swiper('.tp-product-banner-slider-active', {
-      slidesPerView: 1,
-      spaceBetween: 0,
-      loop: true,
-      effect: 'fade',
-      pagination: {
-        el: ".tp-product-banner-slider-dot",
-        clickable: true,
-        renderBullet: function (index: any, className: any) {
-          return '<span class="' + className + '">' + '<button>' + (index + 1) + '</button>' + "</span>";
-        },
-      },
-  
-    });
-  }
-
   public weeksFeatured(){
     
-	var slider = new Swiper('.tp-featured-slider-active', {
-		slidesPerView: 3,
-		spaceBetween: 10,
-		loop: true,
-		enteredSlides: false,
-		pagination: {
-			el: ".tp-featured-slider-dot",
-			clickable: true,
-			renderBullet: function (index: any, className: any) {
-				return '<span class="' + className + '">' + '<button>' + (index + 1) + '</button>' + "</span>";
-			},
-		},
-		// Navigation arrows
-		navigation: {
-			nextEl: ".tp-featured-slider-button-next",
-			prevEl: ".tp-featured-slider-button-prev",
-		},
-
-		breakpoints: {
-			'1200': {
-				slidesPerView: 3,
-			},
-			'992': {
-				slidesPerView: 3,
-			},
-			'768': {
-				slidesPerView: 2,
-			},
-			'576': {
-				slidesPerView: 1,
-			},
-			'0': {
-				slidesPerView: 1,
-			},
-		},
-	});
-  }
-
-  public trending(){
-    var slider = new Swiper('.tp-trending-slider-active', {
-      slidesPerView: 2,
-      spaceBetween: 24,
+    var slider = new Swiper('.tp-featured-slider-active', {
+      slidesPerView: 3,
+      spaceBetween: 10,
       loop: true,
       enteredSlides: false,
       pagination: {
-        el: ".tp-trending-slider-dot",
+        el: ".tp-featured-slider-dot",
         clickable: true,
         renderBullet: function (index: any, className: any) {
           return '<span class="' + className + '">' + '<button>' + (index + 1) + '</button>' + "</span>";
@@ -194,22 +172,22 @@ setTimeout(() => {
       },
       // Navigation arrows
       navigation: {
-        nextEl: ".tp-trending-slider-button-next",
-        prevEl: ".tp-trending-slider-button-prev",
+        nextEl: ".tp-featured-slider-button-next",
+        prevEl: ".tp-featured-slider-button-prev",
       },
   
       breakpoints: {
         '1200': {
-          slidesPerView: 2,
+          slidesPerView: 3,
         },
         '992': {
-          slidesPerView: 2,
+          slidesPerView: 3,
         },
         '768': {
           slidesPerView: 2,
         },
         '576': {
-          slidesPerView: 2,
+          slidesPerView: 1,
         },
         '0': {
           slidesPerView: 1,
@@ -217,48 +195,84 @@ setTimeout(() => {
       },
     });
   }
+  
 
-  public testimonial(){
-    var slider = new Swiper('.tp-testimonial-slider-active', {
-      slidesPerView: 1,
-      spaceBetween: 0,
-      loop: true,
-      pagination: {
-        el: ".tp-testimonial-slider-dot",
-        clickable: true,
-        renderBullet: function (index: any, className: any) {
-          return '<span class="' + className + '">' + '<button>' + (index + 1) + '</button>' + "</span>";
-        },
-      },
-      // Navigation arrows
-      navigation: {
-        nextEl: ".tp-testimonial-slider-button-next",
-        prevEl: ".tp-testimonial-slider-button-prev",
-      },
-    });
-  }
+  // public BannerSlider(){
+  //   var slider = new Swiper('.tp-product-banner-slider-active', {
+  //     slidesPerView: 1,
+  //     spaceBetween: 0,
+  //     loop: true,
+  //     effect: 'fade',
+  //     pagination: {
+  //       el: ".tp-product-banner-slider-dot",
+  //       clickable: true,
+  //       renderBullet: function (index: any, className: any) {
+  //         return '<span class="' + className + '">' + '<button>' + (index + 1) + '</button>' + "</span>";
+  //       },
+  //     },
+  
+  //   });
+  // }
 
-  public quickView(){
+  // public trending(){
+  //   var slider = new Swiper('.tp-trending-slider-active', {
+  //     slidesPerView: 2,
+  //     spaceBetween: 24,
+  //     loop: true,
+  //     enteredSlides: false,
+  //     pagination: {
+  //       el: ".tp-trending-slider-dot",
+  //       clickable: true,
+  //       renderBullet: function (index: any, className: any) {
+  //         return '<span class="' + className + '">' + '<button>' + (index + 1) + '</button>' + "</span>";
+  //       },
+  //     },
+  //     // Navigation arrows
+  //     navigation: {
+  //       nextEl: ".tp-trending-slider-button-next",
+  //       prevEl: ".tp-trending-slider-button-prev",
+  //     },
+  
+  //     breakpoints: {
+  //       '1200': {
+  //         slidesPerView: 2,
+  //       },
+  //       '992': {
+  //         slidesPerView: 2,
+  //       },
+  //       '768': {
+  //         slidesPerView: 2,
+  //       },
+  //       '576': {
+  //         slidesPerView: 2,
+  //       },
+  //       '0': {
+  //         slidesPerView: 1,
+  //       },
+  //     },
+  //   });
+  // }
 
-      this.ecommerce();
-  }
+  // public testimonial(){
+  //   var slider = new Swiper('.tp-testimonial-slider-active', {
+  //     slidesPerView: 1,
+  //     spaceBetween: 0,
+  //     loop: true,
+  //     pagination: {
+  //       el: ".tp-testimonial-slider-dot",
+  //       clickable: true,
+  //       renderBullet: function (index: any, className: any) {
+  //         return '<span class="' + className + '">' + '<button>' + (index + 1) + '</button>' + "</span>";
+  //       },
+  //     },
+  //     // Navigation arrows
+  //     navigation: {
+  //       nextEl: ".tp-testimonial-slider-button-next",
+  //       prevEl: ".tp-testimonial-slider-button-prev",
+  //     },
+  //   });
+  // }
 
-  public ecommerce(){
-    $('.tp-cart-minus').on('click',  () => {
-			var $input = $(this.element.nativeElement).find('#tp-cart-input');
-			var count = parseInt($input.val()) - 1;
-			count = count < 1 ? 1 : count;
-			$input.val(count);
-			$input.change();
-			return false;
-		});
-	
-		$('.tp-cart-plus').on('click',  () => {
-			var $input = $(this.element.nativeElement).find('#tp-cart-input');
-			$input.val(parseInt($input.val()) + 1);
-			$input.change();
-			return false;
-		});
-  }
+
 }
 

@@ -4,6 +4,7 @@ import { CatalogComponent } from './components/catalog/catalog.component';
 import { RouterModule, Routes } from '@angular/router';
 import { GlossaryComponent } from './components/glossary/glossary.component';
 import { ProductComponent } from '../product/product.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: '', component: CatalogComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    HttpClientModule
   ]
 })
 export class CollectionsModule { }

@@ -1,6 +1,7 @@
-export interface MyObject {
+export interface collection {
     id: string;
     name: string;
-    image: string
+    description: string;
+    image: string;
   }
   
