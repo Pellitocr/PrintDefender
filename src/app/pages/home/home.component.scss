@@ -34,3 +34,12 @@
 .bannerWords{
     color: white;
 }
+
+.swiper-slide {
+    flex-shrink:0;
+    height: auto;
+}
+
+.align-items-end {
+    /* align-items: flex-end !important; */
+}

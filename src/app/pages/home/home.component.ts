@@ -59,6 +59,9 @@ setTimeout(() => {
 		slidesPerView: 1,
 		spaceBetween: 30,
 		loop: true,
+    autoplay: {
+      delay: 5000,
+    },
 		effect: 'fade',
 		// Navigation arrows
 		navigation: {
